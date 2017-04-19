@@ -30,7 +30,7 @@
  	margin-right: auto;
  }
  .item_name {
- 	font-size: calc(30% + 1.3vw);
+ 	font-size: calc(30% + 1vw);
  }
  .item_price {
  	text-align: right;

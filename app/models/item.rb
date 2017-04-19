@@ -5,6 +5,6 @@ class Item < ApplicationRecord
                   format:  /\A#{URI::regexp(%w(http https))}\z/  
   validates :name, presence: true, length: { maximum: 255 }
   validates :price, presence: true, numericality: :only_integer
-  validates :image_url, presence: true, length: { maximum: 2000 },
-                        format:  /\A#{URI::regexp(%w(http https))}\z/
+  validates :image_url, presence: true, length: { maximum: 50000 },
+                  format:  /\A(#{URI::regexp(%w(http https))}|data:image\/(jpg|jpeg|gif|png|bmp);base64,\s?[\w\/+=]+)\z/
 end

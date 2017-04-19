@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :require_user_logged_in
+  include ParseHtmlHelper
 
   def new
     @item = Item.new
@@ -45,11 +46,7 @@ class ItemsController < ApplicationController
   
   def parse_html(url)
     #　urlから商品情報のパース
-    return { name: "hoge", price: 100, image_url: "https://images-na.ssl-images-amazon.com/images/I/81LY96goTLL._SY679_.jpg"}
+    return _parse_html(url)
   end
   
-  def _parse_html(url)
-    
-    return { name: "hoge", price: 100, image_url: "https://images-na.ssl-images-amazon.com/images/I/81LY96goTLL._SY679_.jpg"}
-  end
 end
