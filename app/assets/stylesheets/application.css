@@ -13,3 +13,46 @@
  *= require_tree .
  *= require_self
  */
+ h1 {
+ 	font-size: calc(80% + 2vw);
+ }
+ h2 {
+ 	font-size: calc(60% + 1.8vw);
+ }
+ .item_img {
+ 	text-align: center;
+ }
+ .item_img img {
+ 	height: calc(40px + 2vw);
+ 	width: auto;
+ 	display: block;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ }
+ .item_name {
+ 	font-size: calc(30% + 1.3vw);
+ }
+ .item_price {
+ 	text-align: right;
+ 	font-size: calc(30% + 1.5vw);
+ }
+ .item_row {
+ 	letter-spacing: -0.4em;
+ 	vertical-align: middle;
+ }
+ .item_row > [class*='col-'] {
+ 	display: inline-block;
+ 	letter-spacing: 0;
+ 	vertical-align: middle;
+ 	float: none !important;
+ }
+ .total_price {
+ 	font-size: calc(150% + 2vw);
+ }
+ .add_item_form {
+  text-align: center;
+  font-size: calc(30% + 1.3vw);
+ }
+ .delete_button {
+  font-size: 1;
+ }

@@ -1,5 +1,15 @@
 <% unless logged_in? %>
-  <%= link_to 'EC Backetを始める', signup_path, class: 'btn btn-success btn-lg' %>
-<% end %>
+  <div class="row">
+    <div class="text-center">
+      <div class="top-signup">
+       <%= link_to 'EC Backetを始める', signup_path, class: 'btn btn-success btn-lg' %>
+      </div>
 
-<p>テスト</p>
+      <div class="top-signin">
+        <p>既にアカウントをお持ちの方：
+        <%= link_to 'ログイン', login_path %>
+        </p>
+      <div>
+    <div>
+  </div>
+<% end %>

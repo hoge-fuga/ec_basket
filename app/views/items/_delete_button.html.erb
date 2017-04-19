@@ -1,0 +1,5 @@
+  <%= form_tag(item_path(item.id), method: :delete) do %>
+    <%= hidden_field_tag :item_id, item.id %>
+    <%= hidden_field_tag :type, 'Item' %>
+    <%= submit_tag 'Del', class: 'btn btn-danger btn-xs delete_button' %>
+  <% end %>

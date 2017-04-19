@@ -1,6 +1,13 @@
 <div class="user-profile">
-
   <div class="name text-center">
-    <h1><%= @user.name %></h1>
+    <h1><%= @user.name %> さんの買い物カゴ</h1>
   </div>
 </div>
+<hr>
+
+<div class="total_price text-center">
+合計 : <%= @user.total_price %> 円
+</div>
+
+<h2>商品一覧</h2>
+<%= render 'items/items', items: Item.where(user: current_user) %>
