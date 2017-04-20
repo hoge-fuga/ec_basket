@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get 'manual_new_item', to: 'items#manual_new'
   resources :users, only: [:show, :new, :create]
   resources :items, only: [:new, :create, :destroy]
+  
+  post 'api/item_create', to: 'api#item_create'
 end

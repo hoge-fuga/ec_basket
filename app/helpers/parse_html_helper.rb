@@ -4,6 +4,18 @@ module ParseHtmlHelper
   require 'kconv'
   require 'nokogiri'
     
+  def parse_html(url)
+    #　urlから商品情報のパース
+    if url.blank?
+      return 1
+    end
+    parsed_params = _parse_html(url)
+    if !parsed_params
+      return 2
+    end
+    return _parse_html(url)
+  end  
+    
   def _parse_html(url)
     html = get_html(url)
     if html
@@ -17,7 +29,7 @@ module ParseHtmlHelper
   def get_html(url)
     10.times do |i|
       begin
-        html = open(url, "r:binary", options = {'User-Agent' => 'EC Backet'}).read
+        html = open(url, "r:binary", 'User-Agent' => 'EC Backet').read
         return html
       rescue OpenURI::HTTPError
         sleep(1)

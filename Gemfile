@@ -56,3 +56,4 @@ gem 'nokogiri'
 group :production do
   gem 'pg'
 end
+gem 'rack-cors', :require => 'rack/cors'

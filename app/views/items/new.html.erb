@@ -6,4 +6,10 @@
 <br>
 <div class="row text-center">
 <p><%= link_to '対応していないサイトの商品の登録', manual_new_item_path %> <p>
+<div class="row">
+  <div class="form-group">
+    <labe class="add_item_label">ブックマークレット</labe></label>
+    <input type="text" class="form-control input-lg" size:50 value='javascript:var id=<%= @user.id %>;var url=encodeURIComponent(location.href);var xhr=new XMLHttpRequest();var params="id="+id+"&url="+url;xhr.open("POST","https://techacademy-sunaga.c9users.io/api/item_create",false);xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");xhr.send(params);' readonly="readonly">
+  </div>
+</div>      
 </div>
