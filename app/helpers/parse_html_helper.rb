@@ -69,19 +69,29 @@ module ParseHtmlHelper
   end
   
   def get_name(obj)
-      str = obj.text
-      return str.strip[0,250]
+    if obj.nil?
+      return "unknown"
+    end
+    str = obj.text
+    return str.strip[0,250]
   end
  
   def get_price(obj)
+    if obj.nil?
+      return nil
+    end
     str = obj.text
     return full_to_half(str.strip).gsub(/\D/,"").to_i
   end
   
   def get_image_url(obj)
+    if obj.nil?
+      return nil
+    end
     return obj.get_attribute('src').strip
   end
   
+
   def full_to_half(str)
     str.tr('０-９ａ-ｚＡ-Ｚ', '0-9a-zA-Z')
   end

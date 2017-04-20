@@ -6,8 +6,12 @@
 <hr>
 
 <div class="total_price text-center">
-合計 : <%= @user.total_price %> 円
+合計 : <%= jpy_comma(@user.total_price) %> 円
 </div>
 
 <h2>商品一覧</h2>
-<%= render 'items/items', items: Item.where(user: current_user) %>
+<div class="text-center">
+<%= paginate @items %>
+<%= render 'items/items', items: @items %>
+<%= paginate @items %>
+</div>

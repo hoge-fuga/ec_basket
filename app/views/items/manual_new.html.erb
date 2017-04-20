@@ -1,0 +1,27 @@
+<div class="row">
+<h1>欲しいものリストへ追加</h1>
+</div>
+
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+        <%= form_for Item.new, html: { class: "manual_new_form"} do |f|  %>
+          <div class="form-group"> 
+            <%= f.label :url, '商品URL : ', class: "add_item_label" %>
+            <%= f.text_field :url, class: 'form-control input-lg', size: 50 %>
+          </div>
+          <div class="form-group"> 
+            <%= f.label :name, '商品名 : ', class: "add_item_label" %>
+            <%= f.text_field :name, class: 'form-control input-lg', size: 50 %>
+          </div>
+          <div class="form-group"> 
+            <%= f.label :price, '価格 : ', class: "add_item_label" %>
+            <%= f.text_field :price, class: 'form-control input-lg', size: 50 %>
+          </div>
+          <div class="form-group"> 
+            <%= f.label :image_url, '商品画像URL : ', class: "add_item_label" %>
+            <%= f.text_field :image_url, class: 'form-control input-lg', size: 50 %>
+          </div>
+            <%= f.submit '追加', name: "manual_new", class: 'btn btn-success btn-lg' %>
+      <% end %>
+    </div>
+  </div>
