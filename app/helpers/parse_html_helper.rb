@@ -47,6 +47,8 @@ module ParseHtmlHelper
       return get_from_amazon(doc)
     when /rakuten\.co\.jp/
       return get_from_rakuten(doc)
+    else
+      return get_from_other(doc)
     end
     
     return false
@@ -77,6 +79,13 @@ module ParseHtmlHelper
 
     image_obj = doc.at_css('#pagebody a.rakutenLimitedId_ImageMain1-3 img')
    
+    return { name: get_name(name_obj), price: get_price(price_obj), image_url: get_image_url(image_obj)}
+  end
+  
+  def get_from_other(doc)
+    name_obj = doc.at_xpath('//head/title')
+    price_obj = doc.at_xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price"))]//*[contains(@id,"price") or  contains(@class,"price")]//*[contains( ./text() ,"￥") or contains(./text(),"円")]')
+    image_obj = doc.at_css('//img')
     return { name: get_name(name_obj), price: get_price(price_obj), image_url: get_image_url(image_obj)}
   end
   
