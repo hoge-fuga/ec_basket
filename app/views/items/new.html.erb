@@ -9,7 +9,7 @@
 <div class="row">
   <div class="form-group">
     <labe class="add_item_label">ブックマークレット</labe></label>
-    <input type="text" class="form-control input-lg" size:50 value='javascript:var id=<%= @user.id %>;var url=encodeURIComponent(location.href);var xhr=new XMLHttpRequest();var params="id="+id+"&url="+url;xhr.open("POST","https://techacademy-sunaga.c9users.io/api/item_create",false);xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");xhr.send(params);' readonly="readonly">
+    <input type="text" class="form-control input-lg" size:50 value='javascript:var id=<%= @user.id %>;var url=encodeURIComponent(location.href);var xhr=new XMLHttpRequest();var params="id="+id+"&url="+url;xhr.open("POST","https://ec-basket.herokuapp.com",false);xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");xhr.send(params);' readonly="readonly">
   </div>
 </div>      
 </div>
