@@ -44,17 +44,17 @@ module ParseHtmlHelper
     host = uri.host
     case host
     when /amazon\.co\.jp/
-      return get_from_amazon(doc)
+      return get_from_amazon(url,doc)
     when /rakuten\.co\.jp/
-      return get_from_rakuten(doc)
+      return get_from_rakuten(url,doc)
     else
-      return get_from_other(doc)
+      return get_from_other(url,doc)
     end
     
     return false
   end
   
-  def get_from_amazon(doc)
+  def get_from_amazon(url,doc)
     # amazon
     name_obj = doc.at_xpath('//*[@id="productTitle"]')
     
@@ -68,10 +68,10 @@ module ParseHtmlHelper
     
     image_obj = doc.at_xpath('//*[@id="landingImage"]')
    
-    return { name: get_name(name_obj), price: get_price(price_obj), image_url: get_image_url(image_obj)}
+    return { name: get_name(doc, name_obj), price: get_price(doc, price_obj), image_url: get_image_url(url, doc, image_obj)}
   end
   
-  def get_from_rakuten(doc)
+  def get_from_rakuten(url,doc)
     # rakuten
     name_obj = doc.at_css('#pagebody span.item_name')
     
@@ -79,37 +79,48 @@ module ParseHtmlHelper
 
     image_obj = doc.at_css('#pagebody a.rakutenLimitedId_ImageMain1-3 img')
    
-    return { name: get_name(name_obj), price: get_price(price_obj), image_url: get_image_url(image_obj)}
+    return { name: get_name(doc, name_obj), price: get_price(doc, price_obj), image_url: get_image_url(url, doc, image_obj)}
   end
   
-  def get_from_other(doc)
+  def get_from_other(url,doc)
     name_obj = doc.at_xpath('//head/title')
-    price_obj = doc.at_xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price"))]//*[contains(@id,"price") or  contains(@class,"price")]//*[contains( ./text() ,"￥") or contains(./text(),"円")]')
-    image_obj = doc.at_css('//img')
-    return { name: get_name(name_obj), price: get_price(price_obj), image_url: get_image_url(image_obj)}
+    price_obj = doc.at_xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price"))]//*[contains(@id,"price") or  contains(@class,"price")]//*[( contains( ./text() ,"¥") or contains( ./text() ,"￥") or contains(./text(),"円") ) and ( string-length(normalize-space()) > 4) ]')
+    return { name: get_name(doc, name_obj), price: get_price(doc,price_obj), image_url: get_image_url(url,doc,nil)}
   end
   
-  def get_name(obj)
+  def get_name(doc, obj)
     if obj.nil?
-      return "unknown"
+      obj = doc.at_xpath('//head/title')
+      if obj.nil?
+        return "unkown"
+      end
     end
+    
     str = obj.text
-    return str.strip[0,250]
+    name = str.strip[0,250]
+    return name
   end
  
-  def get_price(obj)
+  def get_price(doc, obj)
     if obj.nil?
-      return nil
+      obj = doc.at_xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price"))]//*[contains(@id,"price") or  contains(@class,"price")]//*[( contains( ./text() ,"¥") or contains( ./text() ,"￥") or contains(./text(),"円") ) and ( string-length(normalize-space()) > 4 )]')
+      if obj.nil?
+        return nil
+      end
     end
     str = obj.text
-    return full_to_half(str.strip).gsub(/\D/,"").to_i
+    price = full_to_half(str.strip).gsub(/\D/,"").to_i
+    return price
   end
   
-  def get_image_url(obj)
+  def get_image_url(url,doc, obj)
     if obj.nil?
-      return nil
+      img_path = "/favicon.ico"
+    else
+      img_path = obj.get_attribute('src').strip
     end
-    return obj.get_attribute('src').strip
+    img_url = URI.join(url, img_path).to_s
+    return img_url
   end
   
 
