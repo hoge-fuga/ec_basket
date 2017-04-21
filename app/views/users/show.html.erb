@@ -4,7 +4,7 @@
   </div>
 </div>
 <hr>
-
+<% if current_user == @user %>
 <div class="total_price text-center">
 合計 : <%= jpy_comma(@user.total_price) %> 円
 </div>
@@ -20,3 +20,23 @@
 <div class="text-center">
   <%= render 'users/delete_button', user: @user %>
   </div>
+  <h2>Privateの設定切り替え</h2>
+<div class="text-center">
+  <%= render 'users/private_button', user: @user %>
+  </div>
+<% else %>
+  <% if @user.private %>
+      <p>このユーザは、プライベートに設定されています。</p>
+  <% else %>
+  <div class="total_price text-center">
+合計 : <%= jpy_comma(@user.total_price) %> 円
+</div>
+
+<h2>商品一覧</h2>
+<div class="text-center">
+<%= paginate @items %>
+<%= render 'items/items', items: @items %>
+<%= paginate @items %>
+</div>
+<% end %>
+<% end %>

@@ -1,0 +1,11 @@
+<% if user.private %>
+<%= form_tag(user_path(user.id), method: :put) do %>
+    <%= hidden_field_tag :private, false %>
+    <%= submit_tag 'Private', class: 'btn btn-warning btn-xs delete_button' %>
+    <% end %>
+<% else %>
+<%= form_tag(user_path(user.id), method: :put) do %>
+    <%= hidden_field_tag :private, true %>
+    <%= submit_tag 'Public', class: 'btn btn-info btn-xs delete_button' %>
+    <% end %>
+<% end %>

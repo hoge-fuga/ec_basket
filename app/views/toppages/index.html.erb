@@ -1,6 +1,10 @@
 <% unless logged_in? %>
   <div class="row">
-    <div class="text-center">
+    <div class="col-sm-8 col-sm-offset-2 text-center">
+      <p>
+      さまざまなECサイトをまとめて、買い物リストを作成できます！<br>
+      ブックマークレットを利用することで、簡単に買い物リストに商品を追加できます！
+      </p>      
       <div class="top-signup">
        <%= link_to 'EC Backetを始める', signup_path, class: 'btn btn-success btn-lg' %>
       </div>
@@ -9,7 +13,7 @@
         <p>既にアカウントをお持ちの方：
         <%= link_to 'ログイン', login_path %>
         </p>
-      <div>
-    <div>
+      </div>
+    </div>
   </div>
 <% end %>

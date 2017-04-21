@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   get 'manual_new_item', to: 'items#manual_new'
   
-  resources :users, only: [:show, :new, :create, :destroy]
-  resources :items, only: [:new, :create, :destroy, :edit, :manual_new]
+  resources :users, only: [:show, :new, :create, :update, :edit, :destroy]
+  resources :items, only: [:new, :create, :destroy, :update, :edit]
   
   post 'api/item_create', to: 'api#item_create'
 end

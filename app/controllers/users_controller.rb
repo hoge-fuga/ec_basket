@@ -9,6 +9,12 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
+  
+  def update()
+    user = User.find(params[:id])
+    user.update(private: params[:private])
+    redirect_back(fallback_location: root_path)
+  end
 
   def create
     @user = User.new(user_params)
@@ -37,7 +43,8 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation,:private)
   end
   
+
 end

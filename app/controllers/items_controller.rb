@@ -19,9 +19,10 @@ class ItemsController < ApplicationController
   end
     
   def update()
-    if @item.update(manual_item_params)
+    item = Item.find(params[:id])
+    if item.update(manual_item_params)
       flash[:success] = '商品は正常に更新されました'
-      redirect_to @item.user
+      redirect_to user_path(id: current_user.id)
     else
       flash.now[:danger] = '商品は更新されませんでした'
       render :edit
