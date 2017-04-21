@@ -1,0 +1,5 @@
+  <%= form_tag(edit_item_path(item.id), method: :get) do %>
+    <%= hidden_field_tag :item_id, item.id %>
+    <%= hidden_field_tag :type, 'Item' %>
+    <%= submit_tag 'edit', class: 'btn btn-info btn-xs delete_button' %>
+  <% end %>

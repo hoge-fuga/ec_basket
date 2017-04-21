@@ -9,6 +9,24 @@ class ItemsController < ApplicationController
     user_id_str = @user.id.to_s
     @bookmarklet = 'javascript:void ((function(b){var a=new XMLHttpRequest();a.open("POST","'+api_url+'",true);a.setRequestHeader("Content-Type","application/x-www-form-urlencoded");a.send("id='+user_id_str+'&url="+encodeURIComponent(location.href))})());'
   end
+  
+  def manual_new()
+    @item = Item.new
+  end
+  
+  def edit()
+    @item = Item.find(params[:id])
+  end
+    
+  def update()
+    if @item.update(manual_item_params)
+      flash[:success] = '商品は正常に更新されました'
+      redirect_to @item.user
+    else
+      flash.now[:danger] = '商品は更新されませんでした'
+      render :edit
+    end
+  end
 
   def create
     if params[:manual_new]
