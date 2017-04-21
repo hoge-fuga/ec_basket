@@ -3,11 +3,11 @@ class SessionsController < ApplicationController
   end
 
   def create
-    email = params[:session][:email].downcase
-    password = params[:session][:password]
+    email = session_params[:email].downcase
+    password = session_params[:password]
     if login(email, password)
       flash[:success] = 'ログインに成功しました。'
-      redirect_to @user
+      redirect_to user_path
     else
       flash.now[:danger] = 'ログインに失敗しました。'
       render 'new'
@@ -22,15 +22,8 @@ class SessionsController < ApplicationController
 
   private
 
-  def login(email, password)
-    @user = User.find_by(email: email)
-    if @user && @user.authenticate(password)
-      # ログイン成功
-      session[:user_id] = @user.id
-      return true
-    else
-      # ログイン失敗
-      return false
-    end
+
+  def session_params
+    params.require(:session).permit(:email, :password)
   end
 end
