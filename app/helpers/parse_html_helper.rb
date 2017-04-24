@@ -103,7 +103,7 @@ module ParseHtmlHelper
  
   def get_price(doc, obj)
     if obj.nil?
-      obj = doc.at_xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price") and not(contains(@id,"Price") and not(contains(@class,"Price"))]//*[contains(@id,"price") or  contains(@class,"price") or  contains(@id,"Price") or  contains(@class,"Price")]//*[( contains( ./text() ,"¥") or contains( ./text() ,"￥") or contains(./text(),"円") ) and ( string-length(normalize-space()) > 4 )]')
+      obj = doc.at_xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price")) and not(contains(@id,"Price")) and not(contains(@class,"Price"))]//*[contains(@id,"price") or  contains(@class,"price") or  contains(@id,"Price") or  contains(@class,"Price")]//*[( contains( ./text() ,"¥") or contains( ./text() ,"￥") or contains(./text(),"円") ) and ( string-length(normalize-space()) > 4 )]')
       if obj.nil?
         return nil
       end
