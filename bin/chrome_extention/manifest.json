@@ -5,7 +5,9 @@
   "description": "EC BacketのChrome extensionテスト。",
  "permissions": [
  "activeTab",
- "storage"
+ "storage",
+ "http://*/*",
+ "https://*/*"
  ],
  "background":{
  "scripts":  ["ec_backet.js"]
