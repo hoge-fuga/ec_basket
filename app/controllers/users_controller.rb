@@ -2,6 +2,8 @@ class UsersController < ApplicationController
     before_action :require_user_logged_in, only: [:show, :destroy]
     
   def show
+    
+    @item_id = session[:item_id]
     @user = User.find(params[:id])
     @items = @user.items.order(created_at: :desc).page(params[:page]).per(10)
   end
@@ -24,7 +26,8 @@ class UsersController < ApplicationController
       login(@user.email,@user.password)
       redirect_to @user
     else
-      flash.now[:danger] = 'ユーザの登録に失敗しました。'
+      p user_params.to_s
+      flash.now[:danger] = 'ユーザの登録に失敗しました。' + @user.errors.full_messages.to_s
       render :new
     end
   end
@@ -43,7 +46,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation,:private)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :private)
   end
   
 

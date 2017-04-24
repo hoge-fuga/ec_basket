@@ -58,7 +58,8 @@ class ItemsController < ApplicationController
     else
       flash[:danger] = 'データベースへの追加に失敗しました。' + item.errors.full_messages.to_s
     end
-    redirect_back(fallback_location: root_path)
+    session[:item_id] = item.id
+    redirect_to current_user
   end
   
   def destroy

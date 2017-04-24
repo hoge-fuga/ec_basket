@@ -1,5 +1,5 @@
   <%= form_tag(user_path(user.id), method: :delete) do %>
     <%= hidden_field_tag :user_id, user.id %>
     <%= hidden_field_tag :type, 'User' %>
-    <%= submit_tag 'Del', class: 'btn btn-danger btn-xs delete_button' %>
+    <%= submit_tag '退会', class: 'btn btn-danger btn-xs delete_button' %>
   <% end %>

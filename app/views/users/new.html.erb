@@ -23,7 +23,7 @@
             <%= f.label :password_confirmation, 'パスワード（確認）' %>
             <%= f.password_field :password_confirmation, class: 'form-control' %>
           </div>
-          <%= hidden_field_tag :private, false %>
+          <%= f.hidden_field :private, :value => "false" %>
           <div class="text-right">
             <%= f.submit '登録する', class: 'btn btn-success' %>
           </div>

@@ -16,14 +16,14 @@
 <%= paginate @items %>
 </div>
 
-<h2>ユーザーの削除</h2>
-<div class="text-center">
-  <%= render 'users/delete_button', user: @user %>
-  </div>
-  <h2>Privateの設定切り替え</h2>
+<h2>Privateの設定切り替え</h2>
 <div class="text-center">
   <%= render 'users/private_button', user: @user %>
-  </div>
+</div>
+<h2>ユーザーの退会</h2>
+<div class="text-center">
+  <%= render 'users/delete_button', user: @user %>
+</div>
 <% else %>
   <% if @user.private %>
       <p>このユーザは、プライベートに設定されています。</p>
