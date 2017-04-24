@@ -84,8 +84,17 @@ module ParseHtmlHelper
   
   def get_from_other(url,doc)
     name_obj = doc.at_xpath('//head/title')
-    price_obj = doc.at_xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price"))]//*[contains(@id,"price") or  contains(@class,"price")]//*[( contains( ./text() ,"¥") or contains( ./text() ,"￥") or contains(./text(),"円") ) and ( string-length(normalize-space()) > 4) ]')
-    return { name: get_name(doc, name_obj), price: get_price(doc,price_obj), image_url: get_image_url(url,doc,nil)}
+      objs = doc.xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price")) and not(contains(@id,"Price")) and not(contains(@class,"Price"))]//*[contains(@id,"price") or  contains(@class,"price") or  contains(@id,"Price") or  contains(@class,"Price")]//*[( contains( ./text() ,"¥") or contains( ./text() ,"￥") or contains(./text(),"円") )]')
+      for o in objs do
+        price_obj = o
+        str = o.text
+        price = full_to_half(str.strip).gsub(/\D/,"").to_i
+        if price > 0
+          break
+        end
+      end
+
+  return { name: get_name(doc, name_obj), price: get_price(doc,price_obj), image_url: get_image_url(url,doc,nil)}
   end
   
   def get_name(doc, obj)
@@ -103,7 +112,15 @@ module ParseHtmlHelper
  
   def get_price(doc, obj)
     if obj.nil?
-      obj = doc.at_xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price")) and not(contains(@id,"Price")) and not(contains(@class,"Price"))]//*[contains(@id,"price") or  contains(@class,"price") or  contains(@id,"Price") or  contains(@class,"Price")]//*[( contains( ./text() ,"¥") or contains( ./text() ,"￥") or contains(./text(),"円") ) and ( string-length(normalize-space()) > 4 )]')
+      objs = doc.xpath('//*[not(contains(@id,"price")) and not(contains(@class,"price")) and not(contains(@id,"Price")) and not(contains(@class,"Price"))]//*[contains(@id,"price") or  contains(@class,"price") or  contains(@id,"Price") or  contains(@class,"Price")]//*[( contains( ./text() ,"¥") or contains( ./text() ,"￥") or contains(./text(),"円") )]')
+      for o in objs do
+        obj = o
+        str = o.text
+        price = full_to_half(str.strip).gsub(/\D/,"").to_i
+        if price > 0
+          exit
+        end
+      end
       if obj.nil?
         return nil
       end
