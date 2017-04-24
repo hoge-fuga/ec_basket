@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def show
     
     @item_id = session[:item_id]
+    session.(:item_id)
     @user = User.find(params[:id])
     @items = @user.items.order(created_at: :desc).page(params[:page]).per(10)
   end
